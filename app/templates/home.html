@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Classification</title>
+</head>
+<body>
+    <h1>Image Classification</h1>
+
+    <form action="/classify_image" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <input type="submit" value="Classify">
+    </form>
+
+    <div id="results">
+        <!-- The classification results will be displayed here -->
+    </div>
+</body>
+</html>
