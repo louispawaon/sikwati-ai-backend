@@ -15,7 +15,7 @@ from sklearn.preprocessing import StandardScaler
 # Load the H5 Model
 h5_model = keras.models.load_model("app/models/efficientnet.h5")
 
-scaler = joblib.load("app/scaler/scaler.pkl")
+scaler = joblib.load("app/scaler/scaler_new.pkl")
 
 # # Load the TFLite model
 # interpreter = tflite.Interpreter(model_path="app/models/efficientnet_mobile.tflite")
