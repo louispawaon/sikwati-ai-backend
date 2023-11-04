@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 from app import app
 
 import os
@@ -29,7 +30,7 @@ def index():
     return render_template("home.html")
 
 
-@app.route("/classify_image", methods=["POST"])
+@app.route("/api/classify_image", methods=["POST"])
 def classify_image():
     if "image" not in request.files:
         return jsonify({"error": "No file part"})
@@ -56,7 +57,7 @@ def classify_image():
         return jsonify({"class": predicted_class, "confidence": confidence})
 
 
-@app.route("/mobile_classify", methods=["POST"])
+@app.route("/api/mobile_classify", methods=["POST"])
 def mobile_classify():
     if "image" not in request.files:
         return jsonify({"error": "No file part"})
