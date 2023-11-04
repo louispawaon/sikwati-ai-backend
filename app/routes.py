@@ -7,8 +7,10 @@ import joblib
 import numpy as np
 from PIL import Image
 from tensorflow import keras
-import tflite_runtime.interpreter as tflite
 from sklearn.preprocessing import StandardScaler
+
+# import tflite_runtime.interpreter as tflite
+
 
 # Load the H5 Model
 h5_model = keras.models.load_model("app/models/efficientnet.h5")
