@@ -7,8 +7,15 @@
     <h1>Image Classification</h1>
 
     <form action="/classify_image" method="post" enctype="multipart/form-data">
+        <h1>Normal Classification</h1>
         <input type="file" name="image" accept="image/*">
-        <input type="submit" value="Classify">
+        <input type="submit" value="Classify using H5">
+    </form>
+
+    <form action="/mobile_classify" method="post" enctype="multipart/form-data">
+        <h1>Mobile Classification</h1>
+        <input type="file" name="image" accept="image/*">
+        <input type="submit" value="Classify using TFLite">
     </form>
 
     <div id="results">
