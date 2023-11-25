@@ -21,17 +21,51 @@ class_names = ["black_pod_rot", "frosty_pod_rot", "healthy", "pod_borer"]
 
 @app.route("/")
 def index():
-    return render_template("home.html")
+    """
+    Home endpoint.
+
+    ---
+    responses:
+      200:
+        description: Welcome to the Sikwati AI API
+    """
+    return jsonify("Welcome to the Sikwati AI API"), 200
 
 
 @app.route("/api/classify_image", methods=["POST"])
 def classify_image():
+    """
+    Endpoint to classify an uploaded image.
+
+    ---
+    parameters:
+      - name: image
+        in: formData
+        type: file
+        required: true
+        description: The image file to classify.
+
+    responses:
+      200:
+        description: Classification result.
+        schema:
+          properties:
+            class:
+              type: string
+              description: Predicted class.
+            confidence:
+              type: number
+              format: float
+              description: Confidence score.
+      400:
+        description: Invalid request or image cannot be classified.
+    """
     if "image" not in request.files:
-        return jsonify({"error": "No file part"})
+        return jsonify({"error": "No file part"}), 400
 
     uploaded_image = request.files["image"]
     if uploaded_image.filename == "":
-        return jsonify({"error": "No selected file"})
+        return jsonify({"error": "No selected file"}), 400
 
     if uploaded_image:
         # Read and preprocess the image
@@ -47,5 +81,8 @@ def classify_image():
         prediction = h5_model.predict(image)
         predicted_class = class_names[np.argmax(prediction)]
         confidence = np.max(prediction).item()
+
+        if predicted_class not in class_names or confidence < 0.50:
+            return jsonify({"error": "The image may not contain a cacao pod"}), 400
 
         return jsonify({"class": predicted_class, "confidence": confidence})
